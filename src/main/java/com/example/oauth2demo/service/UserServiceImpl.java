@@ -4,10 +4,11 @@ import com.example.oauth2demo.model.UserModel;
 import com.example.oauth2demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
@@ -18,17 +19,25 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Autowired
     UserRepository userRepository;
 
+    /*@Autowired
+    OAuth2Authentication oAuth2Authentication;*/
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+       /* OAuth2Request request = oAuth2Authentication.getOAuth2Request();
+        System.out.println("The scope is : "+ request.getScope());*/
+
         UserModel user = userRepository.findByUserName(userName);
         if(user == null){
             throw  new UsernameNotFoundException("Invalid Username or password");
         }
-        return new User(user.getUserName(), user.getPassword() , getAuthority());
+        System.out.println("The userName is "+userName);
+        System.out.println("The authoritires are "+getAuthority());
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), getAuthority());
     }
 
     private List getAuthority(){
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

@@ -1,3 +1,4 @@
+/*
 package com.example.oauth2demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,4 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter{
                 .authenticationManager(authenticationManager);
     }
 
-}
+}*/
