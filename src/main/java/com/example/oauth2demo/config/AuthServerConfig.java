@@ -27,8 +27,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter{
     static final int ACCESS_TOKEN_VALIDITY_SECONDS = 1*60*60;
     static final int REFRESH_TOKEN_VALIDITY_SECONDS = 6*60*60;
 
-    @Autowired
-    private TokenStore tokenStore;
 
 
     @Autowired
@@ -47,11 +45,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter{
                 .refreshTokenValiditySeconds(REFRESH_TOKEN_VALIDITY_SECONDS);
     }
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints
-                .tokenStore(tokenStore)
-                .authenticationManager(authenticationManager);
-    }
 
-}*/
+}
+*/
